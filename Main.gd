@@ -11,6 +11,7 @@ var rng := RandomNumberGenerator.new()
 var records: Array
 var target_idx: int
 var guess_num := 0
+var finished := false
 @onready var _initial_leaderboard := leaderboard.text
 @onready var _initial_logs := logs.text
 var _leaderboard_tween: Tween
@@ -37,6 +38,7 @@ func guess(n: int):
         return
 
     guess_num += 1
+    finished = (records[n].time_ms == records[target_idx].time_ms)
 
     var lines: Array[String] = []
     var from := n - LINES_NUM / 2
@@ -51,7 +53,7 @@ func guess(n: int):
         var l := ""
         if i == n:
             l = "[color=green]%d[/color]\t[color=yellow]%s[/color]\t%s" % [ i, _format_time_ms(r.time_ms), r.username ]
-            if n == target_idx:
+            if finished:
                 l = "[pulse freq=3.5 color=#ffffff00 ease=-10.0]%s[/pulse]" % [ l ]
         else:
             l = "[color=#ffffff20]%d\t%s\t%s[/color]" % [ i, _format_time_ms(r.time_ms), r.username ]
@@ -64,15 +66,14 @@ func guess(n: int):
     var leaderboard_text := "[p tab_stops=\"230,330\"]" + "\n".join(lines) + "[/p]"
 
     var logs_line := "[p tab_stops=\"210\"]Tentativo [color=#d60072]#%d[/color]\t" % [ guess_num ]
-    if n == target_idx:
+    if finished:
         logs_line += "[wave amp=50.0 freq=5.0 connected=1]"
     logs_line += "[color=green]%d[/color]\t[color=yellow]%s[/color]" % [ n, _format_time_ms(records[n].time_ms) ]
-    if n == target_idx:
+    if finished:
         logs_line += "[/wave]"
     logs_line += "[/p]"
-    if n == target_idx:
+    if finished:
         logs_line += "\n\n[color=#d60072]VITTORIA in[/color] %d [color=#d60072]tentativi![/color]\n\n\n" % [ guess_num ]
-        get_tree().create_timer(6.0).timeout.connect(func(): get_tree().change_scene_to_file("res://Settings.tscn"))
 
     logs.text += logs_line
 
@@ -84,6 +85,9 @@ func guess(n: int):
     _leaderboard_tween.tween_property(leaderboard, "visible_ratio", 1.0, 0.5)
 
 func _on_numpad_pressed(button: int) -> void:
+    if finished:
+        return
+        
     if button == Numpad.BUTTON.BACK:
         if len(current.text) > 0:
             current.text = current.text.substr(0, len(current.text) - 1)

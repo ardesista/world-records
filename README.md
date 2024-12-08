@@ -1,2 +1,3 @@
-# world-records
-Serious game sulla ricerca binaria
+# World Records
+
+Serious game sulla ricerca binaria [giocabile online](https://ardesista.github.io/world-records/).

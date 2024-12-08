@@ -1,13 +1,24 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dpyqc3vuie4j5"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dpyqc3vuie4j5"]
 
 [ext_resource type="FontFile" uid="uid://cj8byy1cerrtb" path="res://OpenDyslexic-Regular.otf" id="1_5btkl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_onvup"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iqdkw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6uue"]
+bg_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [resource]
 Button/font_sizes/font_size = 80
 Button/fonts/font = ExtResource("1_5btkl")
 Button/styles/focus = SubResource("StyleBoxEmpty_onvup")
+Button/styles/hover_pressed = SubResource("StyleBoxEmpty_iqdkw")
+Button/styles/normal = SubResource("StyleBoxFlat_i6uue")
 Label/fonts/font = ExtResource("1_5btkl")
 RichTextLabel/constants/line_separation = -24
 RichTextLabel/font_sizes/normal_font_size = 54

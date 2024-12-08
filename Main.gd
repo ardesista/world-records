@@ -17,6 +17,8 @@ var finished := false
 var _leaderboard_tween: Tween
 
 func _ready() -> void:
+    if OS.has_feature("web_android") or OS.has_feature("web_ios") or OS.has_feature("mobile"):
+        theme.set_stylebox("hover", "Button", theme.get_stylebox("normal", "Button"))
     new_game(Globals.seed)
    
     print("records=", len(records), " target=", target_idx)

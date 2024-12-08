@@ -3,6 +3,9 @@ extends Panel
 @onready var seed: Label = %seed
 
 func _ready() -> void:
+    if OS.has_feature("web_android") or OS.has_feature("web_ios") or OS.has_feature("mobile"):
+        theme.set_stylebox("hover", "Button", theme.get_stylebox("normal", "Button"))
+
     if OS.has_feature("web"):
         %quit_button.visible = false
 

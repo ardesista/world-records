@@ -1,25 +1,26 @@
-[gd_scene load_steps=12 format=3 uid="uid://qmpqs6e5nk4"]
+[gd_scene load_steps=18 format=3 uid="uid://qmpqs6e5nk4"]
 
 [ext_resource type="Theme" uid="uid://dpyqc3vuie4j5" path="res://main_theme.tres" id="1_x65ki"]
 [ext_resource type="Script" path="res://Main.gd" id="2_127c5"]
+[ext_resource type="PackedScene" uid="uid://bg4ivckjds501" path="res://Numpad.tscn" id="4_6gd5r"]
 [ext_resource type="Shader" path="res://alpha.gdshader" id="4_k3j7d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xckm"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xl572"]
+bg_color = Color(0.192157, 0.192157, 0.192157, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vg8qq"]
 shader = ExtResource("4_k3j7d")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_rp341"]
-noise_type = 0
 seed = 19
-frequency = 0.0108
+frequency = 0.0081
 fractal_type = 0
-fractal_octaves = 3
+fractal_octaves = 6
 fractal_lacunarity = 1.0
-fractal_weighted_strength = 0.24
+fractal_weighted_strength = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jy67c"]
 width = 1024
@@ -28,11 +29,57 @@ noise = SubResource("FastNoiseLite_rp341")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j5pnq"]
 texture = SubResource("NoiseTexture2D_jy67c")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3k1j"]
-bg_color = Color(0.176419, 0.176419, 0.176419, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qatj"]
+bg_color = Color(0.477205, 0, 0.256438, 1)
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4pkj"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3k1j"]
+bg_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lmnr"]
+bg_color = Color(0.136826, 0.136826, 0.136826, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2mw38"]
+bg_color = Color(0.137255, 0.137255, 0.137255, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_te8rl"]
+bg_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klbjy"]
+bg_color = Color(0.137255, 0.137255, 0.137255, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spa8g"]
+bg_color = Color(0.137255, 0.137255, 0.137255, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
 
 [node name="Main" type="Panel"]
 offset_right = 1080.0
@@ -47,9 +94,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -540.0
-offset_top = 155.0
+offset_top = 169.0
 offset_right = 540.0
-offset_bottom = 627.0
+offset_bottom = 641.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xl572")
 
@@ -59,16 +106,17 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -500.0
-offset_top = 33.0
-offset_right = 500.0
-offset_bottom = 455.0
+offset_left = -499.0
+offset_top = 24.0
+offset_right = 541.0
+offset_bottom = 446.0
 grow_horizontal = 2
+theme_override_constants/line_separation = -20
 bbcode_enabled = true
-text = "[p tab_stops=\"250,70\"]1
-2
-99999.	11:22.333	ciao
-4
+text = "[p tab_stops=\"230,330\"]1
+[color=#ffffff20]99999	11:22.333	oijrfa_jue[/color]	
+...ma [color=#d60072]una riga alla volta![/color]
+[color=#ffffff20]99999	11:22.333	uyewfho[/color]
 5[/p]"
 scroll_active = false
 autowrap_mode = 0
@@ -84,20 +132,32 @@ offset_right = 540.0
 offset_bottom = 472.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_j5pnq")
+metadata/_edit_lock_ = true
 
-[node name="title" type="Label" parent="."]
+[node name="top_panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -175.5
-offset_top = 29.0
-offset_right = 175.5
-offset_bottom = 98.0
+offset_left = -448.0
+offset_right = 448.0
+offset_bottom = 150.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 60
+theme_override_styles/panel = SubResource("StyleBoxFlat_3qatj")
+
+[node name="title" type="Label" parent="top_panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -368.0
+offset_right = 369.0
+offset_bottom = 144.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 74
 text = "World Records"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="game_info" type="RichTextLabel" parent="."]
 unique_name_in_owner = true
@@ -106,180 +166,119 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -342.0
-offset_top = 135.0
+offset_top = 164.0
 offset_right = 342.0
-offset_bottom = 273.0
+offset_bottom = 302.0
 grow_horizontal = 2
 theme_override_constants/line_separation = -9
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
-text = "[center]risultati [color=yellow]12302[/color]
-trova [color=green]12:33.456[/color][/center]"
+text = "[center]righe [color=green]12302[/color]
+trova [color=yellow]12:33.456[/color][/center]"
 scroll_active = false
 autowrap_mode = 0
 
-[node name="log_panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -540.0
-offset_top = 551.0
-offset_right = 540.0
-offset_bottom = 1127.0
-grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_g3k1j")
-
-[node name="log" type="RichTextLabel" parent="log_panel"]
-unique_name_in_owner = true
+[node name="logs_panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -500.0
-offset_top = 33.0
+offset_top = 531.0
 offset_right = 500.0
+offset_bottom = 1120.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g3k1j")
+
+[node name="logs" type="RichTextLabel" parent="logs_panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -452.0
+offset_top = 33.0
+offset_right = 452.0
 offset_bottom = 542.0
 grow_horizontal = 2
-theme_override_constants/line_separation = -8
-theme_override_font_sizes/normal_font_size = 30
+theme_override_constants/table_h_separation = 80
+theme_override_constants/line_separation = 4
+theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
-text = "a
-s
-d
-f
-g
+text = "[color=#cccccc]Trova la [color=green]posizione[/color] in classifica
+del [color=yellow]tempo indicato in alto[/color]
+usando il minor numero di
+tentativi possibile.[/color]
+
 "
 scroll_following = true
 
-[node name="numpad" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1080.0
-offset_top = -659.0
-offset_bottom = 1.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_o4pkj")
-
-[node name="centered" type="CenterContainer" parent="numpad"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="grid" type="GridContainer" parent="numpad/centered"]
-layout_mode = 2
-theme_override_constants/h_separation = 16
-theme_override_constants/v_separation = 16
-columns = 3
-
-[node name="button_1" type="Button" parent="numpad/centered/grid"]
-custom_minimum_size = Vector2(320, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 70
-text = "1"
-
-[node name="button_2" type="Button" parent="numpad/centered/grid"]
-custom_minimum_size = Vector2(320, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 70
-text = "2"
-
-[node name="button_3" type="Button" parent="numpad/centered/grid"]
-custom_minimum_size = Vector2(320, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 70
-text = "3"
-
-[node name="button_4" type="Button" parent="numpad/centered/grid"]
-custom_minimum_size = Vector2(320, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 70
-text = "4"
-
-[node name="button_5" type="Button" parent="numpad/centered/grid"]
-custom_minimum_size = Vector2(320, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 70
-text = "5"
-
-[node name="button_6" type="Button" parent="numpad/centered/grid"]
-custom_minimum_size = Vector2(320, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 70
-text = "6"
-
-[node name="button_7" type="Button" parent="numpad/centered/grid"]
-custom_minimum_size = Vector2(320, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 70
-text = "7"
-
-[node name="button_8" type="Button" parent="numpad/centered/grid"]
-custom_minimum_size = Vector2(320, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 70
-text = "8"
-
-[node name="button_9" type="Button" parent="numpad/centered/grid"]
-custom_minimum_size = Vector2(320, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 70
-text = "9"
-
-[node name="button_back" type="Button" parent="numpad/centered/grid"]
-custom_minimum_size = Vector2(320, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 70
-text = "◀"
-
-[node name="button_0" type="Button" parent="numpad/centered/grid"]
-custom_minimum_size = Vector2(320, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 70
-text = "0"
-
-[node name="button_ok" type="Button" parent="numpad/centered/grid"]
-custom_minimum_size = Vector2(320, 150)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 0, 1)
-theme_override_font_sizes/font_size = 70
-text = "✓"
-
-[node name="current" type="Label" parent="."]
-unique_name_in_owner = true
+[node name="numpad" parent="." instance=ExtResource("4_6gd5r")]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -484.0
-offset_top = -792.0
-offset_right = 484.0
-offset_bottom = -664.0
+offset_left = -540.0
+offset_top = -660.0
+offset_right = 540.0
+offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="current_panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -785.0
+offset_right = 500.0
+offset_bottom = -669.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7lmnr")
+
+[node name="current" type="Label" parent="current_panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -484.0
+offset_top = -64.0
+offset_right = 484.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 70
 text = "273423"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[connection signal="pressed" from="numpad/centered/grid/button_1" to="." method="button_pressed" binds= [1]]
-[connection signal="pressed" from="numpad/centered/grid/button_2" to="." method="button_pressed" binds= [2]]
-[connection signal="pressed" from="numpad/centered/grid/button_3" to="." method="button_pressed" binds= [3]]
-[connection signal="pressed" from="numpad/centered/grid/button_4" to="." method="button_pressed" binds= [4]]
-[connection signal="pressed" from="numpad/centered/grid/button_5" to="." method="button_pressed" binds= [5]]
-[connection signal="pressed" from="numpad/centered/grid/button_6" to="." method="button_pressed" binds= [6]]
-[connection signal="pressed" from="numpad/centered/grid/button_7" to="." method="button_pressed" binds= [7]]
-[connection signal="pressed" from="numpad/centered/grid/button_8" to="." method="button_pressed" binds= [8]]
-[connection signal="pressed" from="numpad/centered/grid/button_9" to="." method="button_pressed" binds= [9]]
-[connection signal="pressed" from="numpad/centered/grid/button_back" to="." method="button_pressed" binds= [10]]
-[connection signal="pressed" from="numpad/centered/grid/button_0" to="." method="button_pressed" binds= [0]]
-[connection signal="pressed" from="numpad/centered/grid/button_ok" to="." method="button_pressed" binds= [11]]
+[node name="quit_button" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -76.0
+offset_top = 22.0
+offset_right = -16.0
+offset_bottom = 82.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_2mw38")
+theme_override_styles/hover = SubResource("StyleBoxFlat_te8rl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_klbjy")
+theme_override_styles/normal = SubResource("StyleBoxFlat_spa8g")
+text = "Χ"
+
+[connection signal="numpad_pressed" from="numpad" to="." method="_on_numpad_pressed"]
+[connection signal="pressed" from="quit_button" to="." method="_on_quit_button_pressed"]

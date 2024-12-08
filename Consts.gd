@@ -81,15 +81,18 @@ static func _gen_username(rng: RandomNumberGenerator) -> String:
         username += p
     return username
 
-static func gen_records(n := 10000, rng: RandomNumberGenerator = null) -> Array:
+static func gen_records(n := 10000, username_maxlen := -1, rng: RandomNumberGenerator = null) -> Array:
     if not rng:
         rng = RandomNumberGenerator.new()
 
     var records = []
     for _i in range(n):
+        var username = ""
+        while len(username) <= 3:
+            username = _gen_username(rng).substr(0, username_maxlen)
         records.append({
-            "time_ms": 300000 + rng.randi() % 3299000,
-            "username": _gen_username(rng)
+            "time_ms": 300000 + rng.randi() % (3299000 if rng.randi() % 4 == 0 else 600000),
+            "username": username
         })
     records.sort_custom(func(a, b): return a.time_ms < b.time_ms)
     return records

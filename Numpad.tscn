@@ -1,0 +1,119 @@
+[gd_scene load_steps=3 format=3 uid="uid://bg4ivckjds501"]
+
+[ext_resource type="Script" path="res://Numpad.gd" id="1_2mgo5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4pkj"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Numpad" type="Panel"]
+offset_right = 1080.0
+offset_bottom = 660.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_o4pkj")
+script = ExtResource("1_2mgo5")
+
+[node name="centered" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="grid" type="GridContainer" parent="centered"]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 3
+
+[node name="button_1" type="Button" parent="centered/grid"]
+custom_minimum_size = Vector2(320, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "1"
+
+[node name="button_2" type="Button" parent="centered/grid"]
+custom_minimum_size = Vector2(320, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "2"
+
+[node name="button_3" type="Button" parent="centered/grid"]
+custom_minimum_size = Vector2(320, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "3"
+
+[node name="button_4" type="Button" parent="centered/grid"]
+custom_minimum_size = Vector2(320, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "4"
+
+[node name="button_5" type="Button" parent="centered/grid"]
+custom_minimum_size = Vector2(320, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "5"
+
+[node name="button_6" type="Button" parent="centered/grid"]
+custom_minimum_size = Vector2(320, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "6"
+
+[node name="button_7" type="Button" parent="centered/grid"]
+custom_minimum_size = Vector2(320, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "7"
+
+[node name="button_8" type="Button" parent="centered/grid"]
+custom_minimum_size = Vector2(320, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "8"
+
+[node name="button_9" type="Button" parent="centered/grid"]
+custom_minimum_size = Vector2(320, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "9"
+
+[node name="button_back" type="Button" parent="centered/grid"]
+custom_minimum_size = Vector2(320, 150)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.839216, 0, 0.447059, 1)
+theme_override_colors/font_pressed_color = Color(0.839216, 0, 0.447059, 1)
+theme_override_colors/font_focus_color = Color(0.839216, 0, 0.447059, 1)
+theme_override_colors/font_color = Color(0.839216, 0, 0.447059, 1)
+theme_override_font_sizes/font_size = 70
+text = "◀"
+
+[node name="button_0" type="Button" parent="centered/grid"]
+custom_minimum_size = Vector2(320, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "0"
+
+[node name="button_ok" type="Button" parent="centered/grid"]
+custom_minimum_size = Vector2(320, 150)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 1, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 0, 1)
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 70
+text = "✓"
+
+[connection signal="pressed" from="centered/grid/button_1" to="." method="emit_signal" binds= [&"numpad_pressed", 1]]
+[connection signal="pressed" from="centered/grid/button_2" to="." method="emit_signal" binds= [&"numpad_pressed", 2]]
+[connection signal="pressed" from="centered/grid/button_3" to="." method="emit_signal" binds= [&"numpad_pressed", 3]]
+[connection signal="pressed" from="centered/grid/button_4" to="." method="emit_signal" binds= [&"numpad_pressed", 4]]
+[connection signal="pressed" from="centered/grid/button_5" to="." method="emit_signal" binds= [&"numpad_pressed", 5]]
+[connection signal="pressed" from="centered/grid/button_6" to="." method="emit_signal" binds= [&"numpad_pressed", 6]]
+[connection signal="pressed" from="centered/grid/button_7" to="." method="emit_signal" binds= [&"numpad_pressed", 7]]
+[connection signal="pressed" from="centered/grid/button_8" to="." method="emit_signal" binds= [&"numpad_pressed", 8]]
+[connection signal="pressed" from="centered/grid/button_9" to="." method="emit_signal" binds= [&"numpad_pressed", 9]]
+[connection signal="pressed" from="centered/grid/button_back" to="." method="emit_signal" binds= [&"numpad_pressed", 10]]
+[connection signal="pressed" from="centered/grid/button_0" to="." method="emit_signal" binds= [&"numpad_pressed", 0]]
+[connection signal="pressed" from="centered/grid/button_ok" to="." method="emit_signal" binds= [&"numpad_pressed", 11]]

@@ -1,0 +1,177 @@
+[gd_scene load_steps=9 format=3 uid="uid://cr2re6xsemh52"]
+
+[ext_resource type="Theme" uid="uid://dpyqc3vuie4j5" path="res://main_theme.tres" id="1_qcqx7"]
+[ext_resource type="PackedScene" uid="uid://bg4ivckjds501" path="res://Numpad.tscn" id="2_7k25d"]
+[ext_resource type="Script" path="res://Settings.gd" id="2_aepag"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1tb1j"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ulh73"]
+bg_color = Color(0.477205, 0, 0.256438, 1)
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1snak"]
+bg_color = Color(0.136826, 0.136826, 0.136826, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mvxle"]
+bg_color = Color(0.137255, 0.137255, 0.137255, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njdj8"]
+bg_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[node name="Settings" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qcqx7")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1tb1j")
+script = ExtResource("2_aepag")
+
+[node name="top_panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -448.0
+offset_top = 149.0
+offset_right = 448.0
+offset_bottom = 458.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ulh73")
+
+[node name="title" type="Label" parent="top_panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -368.0
+offset_top = 81.0
+offset_right = 369.0
+offset_bottom = 225.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 74
+text = "World Records"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="numpad" parent="." instance=ExtResource("2_7k25d")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -540.0
+offset_top = -660.0
+offset_right = 540.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
+button_ok_text = "Inizia"
+
+[node name="seed_label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -1283.0
+offset_right = 96.0
+offset_bottom = -1192.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 50
+text = "Seed:"
+horizontal_alignment = 1
+
+[node name="seed_panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -1178.0
+offset_right = 500.0
+offset_bottom = -1062.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1snak")
+
+[node name="seed" type="Label" parent="seed_panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -484.0
+offset_top = -64.0
+offset_right = 484.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 70
+text = "273423"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="randomize_seed" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -336.0
+offset_top = 912.0
+offset_right = 336.0
+offset_bottom = 1066.0
+grow_horizontal = 2
+text = "Rigenera"
+
+[node name="quit_button" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -76.0
+offset_top = 22.0
+offset_right = -16.0
+offset_bottom = 82.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_mvxle")
+theme_override_styles/hover = SubResource("StyleBoxFlat_njdj8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mvxle")
+theme_override_styles/normal = SubResource("StyleBoxFlat_mvxle")
+text = "Χ"
+
+[connection signal="numpad_pressed" from="numpad" to="." method="_on_numpad_pressed"]
+[connection signal="pressed" from="randomize_seed" to="." method="_on_randomize_seed_pressed"]
+[connection signal="pressed" from="quit_button" to="." method="_on_quit_button_pressed"]

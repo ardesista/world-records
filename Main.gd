@@ -1,38 +1,39 @@
 extends Panel
 
-enum BUTTON { D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, BACK, OK }
 const LINES_NUM := 5
 
 @onready var current: Label = %current
 @onready var game_info: RichTextLabel = %game_info
 @onready var leaderboard: RichTextLabel = %leaderboard
-@onready var log: RichTextLabel = %log
+@onready var logs: RichTextLabel = %logs
 
 var rng := RandomNumberGenerator.new()
 var records: Array
 var target_idx: int
 var guess_num := 0
-
+@onready var _initial_leaderboard := leaderboard.text
+@onready var _initial_logs := logs.text
 var _leaderboard_tween: Tween
 
 func _ready() -> void:
-    new_game()
+    new_game(Globals.seed)
    
-    print(len(records), " ", target_idx)
-    print(records[target_idx])
+    print("records=", len(records), " target=", target_idx)
+    print(_format_time_ms(records[target_idx].time_ms), " ", records[target_idx].username)
 
-func new_game() -> void:
-    records = Consts.gen_records(rng.randi_range(10000, 15000))
+func new_game(seed: int) -> void:
+    rng.seed = seed
+    records = Consts.gen_records(rng.randi_range(10000, 15000), 11, rng)
     target_idx = rng.randi() % len(records)
-    game_info.text = "[center]risultati [color=yellow]%d[/color]\ntrova [color=green]%s[/color][/center]" % [ len(records), _format_time_ms(records[target_idx].time_ms) ]
-    leaderboard.text = ""
+    game_info.text = "[center]righe [color=green]%d[/color]\ntrova [color=yellow]%s[/color][/center]" % [ len(records), _format_time_ms(records[target_idx].time_ms) ]
+    leaderboard.text = _initial_leaderboard
+    logs.text = _initial_logs
     current.text = ""
-    log.text = ""
     guess_num = 0
 
 func guess(n: int):
     if n < 0 or n >= len(records):
-        log.text += ("\n" if len(log.text) > 0 else "") + "[color=red]Errore:[/color] indice %d non valido" % [ n ]
+        logs.text += "[p][color=red]Errore:[/color] indice %d non valido[/p]" % [ n ]
         return
 
     guess_num += 1
@@ -47,25 +48,33 @@ func guess(n: int):
         
     for i in range(maxi(0, from), mini(to, len(records))):
         var r: Dictionary = records[i]
-        var l := "%5d.\t[color=green]%s[/color]\t%s" % [ i, _format_time_ms(r.time_ms), r.username ]
-        if i == n and n == target_idx:
-            l = "[pulse freq=3.5 color=#ff0000ff ease=-6.0]%s[/pulse]" % [ l ]
+        var l := ""
+        if i == n:
+            l = "[color=green]%d[/color]\t[color=yellow]%s[/color]\t%s" % [ i, _format_time_ms(r.time_ms), r.username ]
+            if n == target_idx:
+                l = "[pulse freq=3.5 color=#ffffff00 ease=-10.0]%s[/pulse]" % [ l ]
+        else:
+            l = "[color=#ffffff20]%d\t%s\t%s[/color]" % [ i, _format_time_ms(r.time_ms), r.username ]
         lines.append(l)
 
     if to > len(records):
         for i in range(len(records) - to):
             lines.append("")
 
-    var leaderboard_text := "[p tab_stops=\"250,70\"]" + "\n".join(lines) + "[/p]"
+    var leaderboard_text := "[p tab_stops=\"230,330\"]" + "\n".join(lines) + "[/p]"
 
-    var log_line := "Tentativo [color=purple]#%d[/color]\t" % [ guess_num ]
+    var logs_line := "[p tab_stops=\"210\"]Tentativo [color=#d60072]#%d[/color]\t" % [ guess_num ]
     if n == target_idx:
-        log_line += "[wave amp=50.0 freq=5.0 connected=1]"
-    log_line += "%-5d\t[color=green]%s[/color]" % [ n, _format_time_ms(records[n].time_ms) ]
+        logs_line += "[wave amp=50.0 freq=5.0 connected=1]"
+    logs_line += "[color=green]%d[/color]\t[color=yellow]%s[/color]" % [ n, _format_time_ms(records[n].time_ms) ]
     if n == target_idx:
-        log_line += "[/wave]"
+        logs_line += "[/wave]"
+    logs_line += "[/p]"
+    if n == target_idx:
+        logs_line += "\n\n[color=#d60072]VITTORIA in[/color] %d [color=#d60072]tentativi![/color]\n\n\n" % [ guess_num ]
+        get_tree().create_timer(6.0).timeout.connect(func(): get_tree().change_scene_to_file("res://Settings.tscn"))
 
-    log.text += ("\n" if len(log.text) > 0 else "") + log_line
+    logs.text += logs_line
 
     if _leaderboard_tween:
         _leaderboard_tween.kill()
@@ -74,16 +83,19 @@ func guess(n: int):
     _leaderboard_tween.tween_callback(func(): leaderboard.text = leaderboard_text)
     _leaderboard_tween.tween_property(leaderboard, "visible_ratio", 1.0, 0.5)
 
-func button_pressed(button: int) -> void:
-    if button == BUTTON.BACK:
+func _on_numpad_pressed(button: int) -> void:
+    if button == Numpad.BUTTON.BACK:
         if len(current.text) > 0:
             current.text = current.text.substr(0, len(current.text) - 1)
-    elif button == BUTTON.OK:
+    elif button == Numpad.BUTTON.OK:
         if len(current.text) > 0:
             guess(int(current.text))
             current.text = ""
-    else:
+    elif len(current.text) < 5:
         current.text += str(button)
 
 static func _format_time_ms(t: int) -> String:
-    return "%2d:%02d.%03d" % [ t / 60000, (t % 60000) / 1000, t % 1000 ]
+    return "%d:%02d.%03d" % [ t / 60000, (t % 60000) / 1000, t % 1000 ]
+
+func _on_quit_button_pressed() -> void:
+    get_tree().change_scene_to_file("res://Settings.tscn")

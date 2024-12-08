@@ -90,10 +90,10 @@ func _on_numpad_pressed(button: int) -> void:
     if finished:
         return
         
-    if button == Numpad.BUTTON.BACK:
+    if button == Numpad.BUTTON_BACK:
         if len(current.text) > 0:
             current.text = current.text.substr(0, len(current.text) - 1)
-    elif button == Numpad.BUTTON.OK:
+    elif button == Numpad.BUTTON_OK:
         if len(current.text) > 0:
             guess(int(current.text))
             current.text = ""

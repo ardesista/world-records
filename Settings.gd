@@ -12,10 +12,10 @@ func _ready() -> void:
     seed.text = str(Globals.seed)
 
 func _on_numpad_pressed(button: int) -> void:
-    if button == Numpad.BUTTON.BACK:
+    if button == Numpad.BUTTON_BACK:
         if len(seed.text) > 0:
             seed.text = seed.text.substr(0, len(seed.text) - 1)
-    elif button == Numpad.BUTTON.OK:
+    elif button == Numpad.BUTTON_OK:
         Globals.seed = int(seed.text) if len(seed.text) > 0 else (randi() % 1000000)
         get_tree().change_scene_to_file("res://Main.tscn")
     elif len(seed.text) < 9:
